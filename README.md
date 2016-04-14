@@ -1,5 +1,4 @@
 # sugarflower.github.io
 sugarflower page
-環境移行したのでgithubのローカル更新
 
-RPiがトラブル続きだったのでgitへの再接続。
+sites.googleで管理していた各種情報の整理などを目的としたサイトになる。予定。
