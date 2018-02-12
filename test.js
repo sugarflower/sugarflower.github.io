@@ -24,15 +24,9 @@ function draw(){
 	image(img,-32,0,64,64, idx[cnt] * 16,0, 16,16);
 	pop();
 
-	if( keyIsPressed == true && (keyCode == 100 || keyCode ==97)){
+	if( keyIsPressed == true && (keyCode == 100 || keyCode == 97)){
 		vec = (keyCode == 100 ) - (keyCode == 97 );
-		pos = pos + vec;
-		if( 0 > pos ) {
-			pos=0;
-		}
-		if( 41 < pos ){
-			pos=41;
-		}
+		if( (0 <= pos + vec) && ( 41 >= pos + vec ) ) pos = pos + vec;
 		cnt ++;
 		cnt = cnt % 4;
 	} else {
