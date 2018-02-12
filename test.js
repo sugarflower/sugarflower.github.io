@@ -4,9 +4,10 @@ var cnt;
 var idx = [ 0,1,0,2 ];
 
 var pos = 0;
+var vec = 1;
 
 function setup(){
-	var canvas = createCanvas(720,100);
+	var canvas = createCanvas(720,200);
 	canvas.parent("p5");
 	frameRate(8);
 	noSmooth();
@@ -16,10 +17,16 @@ function setup(){
 
 function draw(){
 	background(100,100,100);
-	image(img,pos*16,30,64,64, idx[cnt] * 16,0, 16,16);
 
-	if( keyIsPressed == true ){
-		pos = pos + (keyCode == 100 ) - (keyCode == 97 );
+	push();
+	translate(pos*16+32,30);
+	scale(vec,1);
+	image(img,-32,0,64,64, idx[cnt] * 16,0, 16,16);
+	pop();
+
+	if( keyIsPressed == true && (keyCode == 100 || keyCode ==97)){
+		vec = (keyCode == 100 ) - (keyCode == 97 );
+		pos = pos + vec;
 		if( 0 > pos ) {
 			pos=0;
 		}
