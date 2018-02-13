@@ -58,7 +58,7 @@ function draw(){
 	
 		if( keyIsPressed == true && (keyCode == 100 || keyCode == 97)){
 			vec = (keyCode == 100 ) - (keyCode == 97 );
-			if( (0 <= pos + vec) && ( 42 >= pos + vec ) ) pos = pos + vec;
+			if( (0 <= pos + vec) && ( 28 >= pos + vec ) ) pos = pos + vec;
 			cnt ++;
 			cnt = cnt % 4;
 		} else {
