@@ -26,7 +26,7 @@ function setup(){
 
 	bg = createGraphics(240,128) // 3x
 	k8x12init();
-	frameRate(8);
+	frameRate(16);
 
 	cnt = 0;
 	img = loadImage("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAQCAMAAABncAyDAAAAS1BMVEUAAAD///8AAADBhsitb6SGZm4A/30A//8Agv8AAP95AP/PAP//ANeWPBjHXgP/fQDLmkWWPBhhAAD/94LD/4KC/4KC/76C//+Cw/9eGZ2/AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfiAgwNHSEckxPgAAAAnUlEQVQoz42SCw6EMAhEB+b+d94K1PKpyWJsMg3zBAQAqCR1HfgvVu6Tra+lA27aDcobYOiVbc92TEDTDH/cdMAAwr+WDR1QNKDek4iocAKGhkk5hg7o2qcgFsoroGrs+s6UKqDrMNBL/QLkpp/6vC3RDrAxNZ0YjP9mBFaezUliN3ak3TJiwb3aQyBnG+lz3Aiei7SyKMvNeLP24wdqKQSpXyK6PQAAAABJRU5ErkJggg==");
@@ -35,7 +35,6 @@ function setup(){
 		keys[i] = false;
 	}
 
-
 	audio = new Audio("./lib/audio/Untitled3.mp3");
 	audio.loop = true;
 	audio.play();
@@ -43,12 +42,14 @@ function setup(){
 	//cc = s2c(0x889f);
 	state = 0;
 	keyCount = 0;
+
+	audiomax = 0;
 }
 
 function draw(){
-	if(state < 2){
-		if( state == 1 ){
-			// first draw
+	if(state < 3){
+		if( state > 0 ){
+			// first time drawing
 			bg.noStroke();
 			bg.fill(50,50,50);
 			bg.rect(0,0,240,128);
@@ -58,15 +59,15 @@ function draw(){
 		}
 		state ++;
 	} else {
-		// normal looping
+		// looping
 		image(bg,0,0,720,384);
-	
+
 		push();
 		translate(pos.x*12+24, pos.y*12+24);
 		scale(pos.lv,1);
-		image(img,-24,-24,48,48, idx[Math.floor(cnt/2)] * 16,0, 16,16);
+		image(img,-24,-24,48,48, idx[Math.floor(cnt/3)] * 16,0, 16,16);
 		pop();
-	
+		
 		if( keyCount > 0 && keys[65] || keys[68] || keys[87] || keys[83] ){
 			if( !(keys[65] & keys[68]) & !(keys[87] & keys[83])){
 				pos.vec = keys[68] - keys[65];
@@ -74,7 +75,7 @@ function draw(){
 				if( pos.vec != 0 ) pos.lv = pos.vec;
 				if( (0 <= pos.x + pos.vec) && ( 56 >= pos.x + pos.vec ) ) pos.x = pos.x + pos.vec;
 				if( (0 <= pos.y + pos.vecy) && ( 28 >= pos.y + pos.vecy ) ) pos.y = pos.y + pos.vecy;
-				cnt = ( (cnt + 1 ) % 8 );
+				cnt = ( (cnt + 1 ) % 12 );
 			} else {
 				cnt = 0;
 			}
@@ -96,3 +97,8 @@ function keyReleased(){
 	keyCount --;
 	if(keyCount < 0 ) keyCount = 0;
 }
+
+/*
+function mouseClicked(){
+}
+*/
