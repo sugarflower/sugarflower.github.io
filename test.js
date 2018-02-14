@@ -35,7 +35,7 @@ function setup(){
 		keys[i] = false;
 	}
 
-	audio = new Audio("./lib/audio/Untitled3.mp3");
+	audio = new Audio("./lib/audio/new.mp3");
 	audio.loop = true;
 	audio.play();
 
