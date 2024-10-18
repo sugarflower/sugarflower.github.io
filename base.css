@@ -84,6 +84,7 @@ html {
 
 
 #content {
+    box-sizing: border-box;
     touch-action: none;
     display: block;
     position: absolute;
