@@ -1,0 +1,18 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #ddd;
+}
+
+.inner_text {
+    display: none;
+}
+
+#title {
+    background: url("img/sugarflower.png"); 
+}
+
+
