@@ -85,10 +85,12 @@ html {
 
 #content {
     box-sizing: border-box;
+    overflow: auto;
     touch-action: none;
     display: block;
     position: absolute;
     width: calc(100% - 200px);
+    height: 100%;
     left: 200px;
     top: 0px;
     padding: 20px;
