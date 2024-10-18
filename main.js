@@ -1,3 +1,15 @@
+//const { invoke } = window.__TAURI__.tauri;
+/*
+let greetInputEl;
+let greetMsgEl;
+*/
+/*
+async function greet() {
+  // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
+}
+*/
+
 var splitter_mouse_state;
 var menuEl;
 var contentEl;
@@ -7,8 +19,18 @@ function folder_click(id) {
     console.log(id);
 }
 
-
 window.addEventListener("DOMContentLoaded", () => {
+    /*greetInputEl = document.querySelector("#greet-input");
+    greetMsgEl = document.querySelector("#greet-msg");
+    document.querySelector("#greet-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        greet();
+    });
+    */
+
+    /*
+     *  for Tree View
+     */
     var targets = document.getElementsByClassName("label");
     for( var i=0; i< targets.length ; i ++ ){
         targets[i].addEventListener("click", (e) => {
@@ -28,6 +50,10 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+
+    /*
+     *  splitter
+     */
     splitter_mouse_state="";
     menuEl = document.querySelector("#menu");
     contentEl = document.querySelector("#content");
@@ -51,4 +77,15 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    /*
+     *  disable context menu 
+     */
+    menuEl.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+    });
+    splitterEl.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+    });
+
 });
