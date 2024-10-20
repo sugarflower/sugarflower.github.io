@@ -10,13 +10,20 @@
 
     <body>
         <div id="menu">
-            <p id="f1" class="label opened">menu1</p>
+            <p id="f1" class="label opened">sugar flower</p>
             <div class="f1 folder opened">
                 <ul>
                     <li><a href="#welcome">Welcome</a></li>
-                    <li><a href="#image2userdata">image2userdata</a></li>
-                    <li>---</li>
-                <ul>
+                </ul>
+                <p id="f2" class="label opened">image2userdata</p>
+                <div class="f2 folder opened">
+                    <ul>
+                        <li><a href="#image2userdata">introduction</a></li>
+                        <ul>
+                            <li><a href="#image2userdata-howto">how to use</a></li>
+                        </ul>
+                    <ul>
+                </div>
             </div>
 
         </div>
@@ -35,7 +42,7 @@
             <div id="image2userdata">
                 <h2>image2userdata</h2>
                 <ul>
-                    <li><a href="archive/image2useradata-win64.zip">image2userdata-win64.zip</a>
+                    <li><a href="archive/image2useradata-win64.zip">image2userdata-win64.zip</a> (first viersion 202410)
                         - Color conversion software optimized for Picotron palette</li>
                 </ul>
                 <p>It is currently under development and we are making tweaks to improve conversion.<br>
@@ -53,11 +60,11 @@
                 <p>It looks just like this.</p>
 
 
-                <code>
+                <pre><code>
     pict = userdata("u8",240,240,"010 ....
     window {}
     spr(pict, 0, 0)
-                </code>
+                </code></pre>
             </div>
         </div>
 
