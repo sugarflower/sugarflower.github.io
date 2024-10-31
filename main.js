@@ -7,6 +7,17 @@ function folder_click(id) {
     console.log(id);
 }
 
+var imgs = {
+    "img202410": {
+        "src": "img/Halloween_pt2.png",
+        "description": "Happy Halloween! 2024.10"
+    },
+    "img202411": {
+        "src": "img/autmn.png",
+        "description": "Autumn means Beaujolais and mushrooms 2024.11"
+    }
+}
+
 
 window.addEventListener("DOMContentLoaded", () => {
     var targets = document.getElementsByClassName("label");
@@ -52,4 +63,35 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    const ulElement = document.getElementById("backup_image_block");
+    const keys = Object.keys(imgs);
+    keys.sort((a, b) => b.localeCompare(a));
+
+    keys.forEach(v => {
+        const liElement = document.createElement("li");
+        liElement.innerHTML = "<span class='img_description'>" + v + "</span>";
+        liElement.id = v;
+        liElement.classList.add("imgbtn");
+        ulElement.appendChild(liElement); 
+    });
+
+    // 毎月の画像をどうにかする部分
+    function dispImage(key) {
+        var dat = imgs[key];
+        document.getElementById("image").src=dat["src"];
+        document.getElementById("description").innerText=dat["description"];
+    }
+
+    var imgbtns = document.getElementsByClassName("imgbtn");
+    Array.from(imgbtns).forEach(v => {
+        v.addEventListener("click", (e) => {
+            dispImage(e.target.id);
+        });
+    });
+    const keyNumbers = Object.keys(imgs).map(key => Number(key.match(/\d+/g)[0]));
+    const maxKeyNumber = Math.max(...keyNumbers);
+    dispImage("img"+maxKeyNumber);
+
+
 });

@@ -123,3 +123,23 @@ html {
 	background: #b5b5b5;
     cursor: pointer;
 }
+
+
+.img_description {
+    display: none;
+}
+.imgbtn {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #0000d0;
+    margin-right: 8px;
+}
+.imgbtn:hover {
+    background: #7070f0;
+}
+#backup_image_block {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
