@@ -15,6 +15,10 @@ var imgs = {
     "img202411": {
         "src": "img/autmn.png",
         "description": "Autumn means Beaujolais and mushrooms 2024.11"
+    },
+    "img202412": {
+        "src": "img/2412_01.png",
+        "description": "Fuyu Tsubaki"
     }
 }
 
