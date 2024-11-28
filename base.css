@@ -143,3 +143,50 @@ html {
     margin-left: 0;
     padding-left: 0;
 }
+
+
+
+#convert_userdata {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+#convert_userdata h3 {
+    margin: 0;
+}
+#convert_userdata #fileInput {
+    display: none;
+}
+#convert_userdata #FileLabel {
+    font-size: 9pt;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 8px;
+    background-color: #eee;
+    color: black;
+    border: 1px solid #555;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 18px;
+}
+#convert_userdata #copy {
+    position: relative;
+    display: inline-block;
+    top: 5px;
+    height: 18px;
+    width: 18px;
+    margin: 0;
+    background-image: url("data:image/gif;base64,R0lGODlhEgASAIABAAAAAD1CYCH+EUNyZWF0ZWQgd2l0aCBHSU1QACH5BAEKAAEALAAAAAASABIAAAIrjI+pBu3fFFhnJktxxEsz+oWcVIVZGYwXqiJeCsJi/LaoDOVvvIKqDuHxCgA7");
+    cursor: pointer;
+}
+#convert_userdata #result {
+    color: orange;
+}
+
+#convert_userdata .description {
+    font-size: 80%;
+    color: #3a3;
+    margin: 0;
+    padding: 0;
+}
