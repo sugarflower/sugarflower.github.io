@@ -132,10 +132,10 @@
                         const a = data[i + 3];
                         var cidx = find_palette_color(r, g, b);
                         if (cidx == "-1") {
-                            console.log(r + ", " + g + ", " + b );
-                            //alert("Incorrect colors (only images drawn with picotron palette colors can be converted)");
-                            //return;
-                            cidx = "00";
+                            //console.log(r + ", " + g + ", " + b );
+                            alert("Incorrect colors (only images drawn with picotron palette colors can be converted)");
+                            return;
+                            //cidx = "00";
                         }
                         buf = buf + cidx;
                     }
