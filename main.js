@@ -96,95 +96,100 @@ window.addEventListener("DOMContentLoaded", () => {
     const keyNumbers = Object.keys(imgs).map(key => Number(key.match(/\d+/g)[0]));
     const maxKeyNumber = Math.max(...keyNumbers);
     dispImage("img"+maxKeyNumber);
-});
 
-const palette = [
-    [  0,   0,   0], 
-    [ 29,  43,  83], 
-    [126,  37,  83], 
-    [  0, 135,  81], 
-    [171,  82,  54], 
-    [ 95,  87,  79], 
-    [194, 195, 199], 
-    [255, 241, 232], 
-    [255,   0,  77], 
-    [255, 163,   0], 
-    [255, 236,  39], 
-    [  0, 228,  54], 
-    [ 41, 173, 255], 
-    [131, 118, 156], 
-    [255, 119, 168], 
-    [255, 204, 170], 
-    [ 28,  94, 172], 
-    [  0, 165, 161], 
-    [117,  78, 151], 
-    [ 18,  83,  89], 
-    [116,  47,  41], 
-    [ 73,  45,  56], 
-    [162, 136, 121], 
-    [255, 172, 197], 
-    [195,   0,  76],
-    [235, 107,   0], 
-    [144, 236,  66], 
-    [  0, 178,  81], 
-    [100, 223, 246], 
-    [189, 154, 223], 
-    [228,  13, 171],
-    [255, 133, 109] 
-]
 
-document.getElementById("copy").addEventListener("click", function() {
-    navigator.clipboard.writeText(document.getElementById("result").value);
-    alert("Data copied");
-});
-document.getElementById('fileInput').addEventListener('change', function(event) {
-    const fi = event.target;
-    if (fi.files.length == 0) { return };
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const data = imageData.data;
-
-            var buf = "";
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                const a = data[i + 3];
-                var cidx = find_palette_color(r, g, b);
-                if (cidx == "-1") {
-                    console.log(r + ", " + g + ", " + b );
-                    //alert("Incorrect colors (only images drawn with picotron palette colors can be converted)");
-                    //return;
-                    cidx = "00";
-                }
-                buf = buf + cidx;
-            }
-            buf = 'userdata("u8",' + canvas.width + "," + canvas.height + ',"' + buf + '")';
-            document.getElementById("result").value = buf;
-        }
-        img.src = e.target.result;
-    }
-    reader.readAsDataURL(file);
-});
-
-function find_palette_color(pr, pg, pb) {
-    var col_idx = -1;
-    palette.forEach(function(pal, idx) {
-        if (pr == pal[0] && pg == pal[1] && pb == pal[2]) {
-            col_idx = idx;
-        }
+    const palette = [
+        [  0,   0,   0], 
+        [ 29,  43,  83], 
+        [126,  37,  83], 
+        [  0, 135,  81], 
+        [171,  82,  54], 
+        [ 95,  87,  79], 
+        [194, 195, 199], 
+        [255, 241, 232], 
+        [255,   0,  77], 
+        [255, 163,   0], 
+        [255, 236,  39], 
+        [  0, 228,  54], 
+        [ 41, 173, 255], 
+        [131, 118, 156], 
+        [255, 119, 168], 
+        [255, 204, 170], 
+        [ 28,  94, 172], 
+        [  0, 165, 161], 
+        [117,  78, 151], 
+        [ 18,  83,  89], 
+        [116,  47,  41], 
+        [ 73,  45,  56], 
+        [162, 136, 121], 
+        [255, 172, 197], 
+        [195,   0,  76],
+        [235, 107,   0], 
+        [144, 236,  66], 
+        [  0, 178,  81], 
+        [100, 223, 246], 
+        [189, 154, 223], 
+        [228,  13, 171],
+        [255, 133, 109] 
+    ]
+    
+    document.getElementById("copy").addEventListener("click", function() {
+        navigator.clipboard.writeText(document.getElementById("result").value);
+        alert("Data copied");
     });
-    return col_idx.toString(16).padStart(2, "0");
-}
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const fi = event.target;
+        if (fi.files.length == 0) { return };
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+    
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+    
+                var buf = "";
+                for (let i = 0; i < data.length; i += 4) {
+                    const r = data[i];
+                    const g = data[i + 1];
+                    const b = data[i + 2];
+                    const a = data[i + 3];
+                    var cidx = find_palette_color(r, g, b);
+                    if (cidx == "-1") {
+                        console.log(r + ", " + g + ", " + b );
+                        //alert("Incorrect colors (only images drawn with picotron palette colors can be converted)");
+                        //return;
+                        cidx = "00";
+                    }
+                    buf = buf + cidx;
+                }
+                buf = 'userdata("u8",' + canvas.width + "," + canvas.height + ',"' + buf + '")';
+                document.getElementById("result").value = buf;
+            }
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    });
+    
+    function find_palette_color(pr, pg, pb) {
+        var col_idx = -1;
+        palette.forEach(function(pal, idx) {
+            if (pr == pal[0] && pg == pal[1] && pb == pal[2]) {
+                col_idx = idx;
+            }
+        });
+        return col_idx.toString(16).padStart(2, "0");
+    }
+
+    
+});
+
+
 
 
