@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert to userdata</title>
+</head>
+<body>
+    <div id="convert_userdata">
+        <h3>Convert to Userdata</h3>
+        <input type="file" id="fileInput">
+        <label for="fileInput" id="FileLabel">select image</label>
+        <input id="result"></input>
+        <div id="copy"></div>
+        <canvas id="canvas" style="display:none;"></canvas>
+
+        <p class="description">Converts an RGB image (such as a .png file) drawn with picotron palette colors to userdata.</p>
+    </div>
+            
+
+
+    <style>
+        #convert_userdata {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #convert_userdata h3 {
+            margin: 0;
+        }
+        #convert_userdata #fileInput {
+            display: none;
+        }
+        #convert_userdata #FileLabel {
+            font-size: 9pt;
+            display: inline-block;
+            margin: 0;
+            padding: 0px 8px;
+            background-color: #eee;
+            color: black;
+            border: 1px solid #555;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            height: 18px;
+        }
+        #convert_userdata #copy {
+            position: relative;
+            display: inline-block;
+            top: 5px;
+            height: 18px;
+            width: 18px;
+            margin: 0;
+            background-image: url("data:image/gif;base64,R0lGODlhEgASAIABAAAAAD1CYCH+EUNyZWF0ZWQgd2l0aCBHSU1QACH5BAEKAAEALAAAAAASABIAAAIrjI+pBu3fFFhnJktxxEsz+oWcVIVZGYwXqiJeCsJi/LaoDOVvvIKqDuHxCgA7");
+            cursor: pointer;
+        }
+        #convert_userdata #result {
+            color: orange;
+        }
+
+        #convert_userdata .description {
+            font-size: 80%;
+            color: #3a3;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <script>
+
+        const palette = [
+            [  0,   0,   0], 
+            [ 29,  43,  83], 
+            [126,  37,  83], 
+            [  0, 135,  81], 
+            [171,  82,  54], 
+            [ 95,  87,  79], 
+            [194, 195, 199], 
+            [255, 241, 232], 
+            [255,   0,  77], 
+            [255, 163,   0], 
+            [255, 236,  39], 
+            [  0, 228,  54], 
+            [ 41, 173, 255], 
+            [131, 118, 156], 
+            [255, 119, 168], 
+            [255, 204, 170], 
+            [ 28,  94, 172], 
+            [  0, 165, 161], 
+            [117,  78, 151], 
+            [ 18,  83,  89], 
+            [116,  47,  41], 
+            [ 73,  45,  56], 
+            [162, 136, 121], 
+            [255, 172, 197], 
+            [195,   0,  76],
+            [235, 107,   0], 
+            [144, 236,  66], 
+            [  0, 178,  81], 
+            [100, 223, 246], 
+            [189, 154, 223], 
+            [228,  13, 171],
+            [255, 133, 109] 
+        ]
+
+        document.getElementById("copy").addEventListener("click", function() {
+            navigator.clipboard.writeText(document.getElementById("result").value);
+            alert("Data copied");
+        });
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const fi = event.target;
+            if (fi.files.length == 0) { return };
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.getElementById('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+
+                    var buf = "";
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+                        const a = data[i + 3];
+                        var cidx = find_palette_color(r, g, b);
+                        if (cidx == "-1") {
+                            console.log(r + ", " + g + ", " + b );
+                            //alert("Incorrect colors (only images drawn with picotron palette colors can be converted)");
+                            //return;
+                            cidx = "00";
+                        }
+                        buf = buf + cidx;
+                    }
+                    buf = 'userdata("u8",' + canvas.width + "," + canvas.height + ',"' + buf + '")';
+                    document.getElementById("result").value = buf;
+                }
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+
+        function find_palette_color(pr, pg, pb) {
+            var col_idx = -1;
+            palette.forEach(function(pal, idx) {
+                if (pr == pal[0] && pg == pal[1] && pb == pal[2]) {
+                    col_idx = idx;
+                }
+            });
+            return col_idx.toString(16).padStart(2, "0");
+        }
+    </script>
+</body>
+</html>
