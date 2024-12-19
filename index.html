@@ -24,7 +24,7 @@
                         <ul>
                             <li><a href="#image2userdata-howto">how to use</a></li>
                         </ul>
-                        <li><a href="#convert_userdata">convert userdata</a></li>
+                        <!--li><a href="#convert_userdata">convert userdata</a></li-->
                     <ul>
                 </div>
 
@@ -37,9 +37,9 @@
                     </ul>
                 </div>
 
-                <ul>
+                <!--ul>
                     <li><a href="#picotron-functions">Picotron functions</a></li>
-                </ul>
+                </ul-->
                         
             </div>
         </div>
@@ -66,56 +66,51 @@
             <div id="image2userdata">
                 <h2>image2userdata</h2>
                 <ul>
-                    <li><a href="archive/image2useradata-win64.zip">image2userdata-win64.zip</a> (first viersion 202410)
+                    <li><a href="archive/image2userdata_win64_241219.zip">image2userdata-win64.zip_241219</a>
                         - Color conversion software optimized for Picotron palette</li>
                 </ul>
                 <p>It is currently under development and we are making tweaks to improve conversion.<br>
                     At this time, we only distribute binaries for Windows 64bit.</p>
-                <img src="img/sfgirl2.png">
+                <img src="img/image2userdata.png">
             </div>
 
 
             <div id="image2userdata-howto">
                 <h3>How to use</h3>
                 <ul>
-                    <li>Prepare an image (adjust the size to fit picotron, A size of 480x270 pixels or less works well.)</li>
-                    <li>Start image2userdata and select the image file</li>
-                    <li>A dialog will appear and the code for creating pod data will be copied to the clipboard. Paste it into the picotron console and run it.</li>
-                    <li>When you run it, the code for the pod data will also be copied to the clipboard, so paste it into a code editor and use it.</li>
+                    <li>Resize the image to the appropriate size using Gimp or similar.</li>
+                    <li>Run image2userdata to create the converted data on the clipboard.</li>
+                    <ul><li>Run it like this: "image2userdata imagefile.png" or "image2userdata imagefile.png b". Adding "b" will convert using Beyer-Marix (usually Floyd Steinberg).</li></ul>
+                        <li>Run store_pod.p64 on your picotron and it will create a file called "output.pod" on your desktop and show the actual image in a window.</li>
                 </ul>
-                <p>It looks just like this.</p>
+                <p>Note: output.pod will be overwritten.<br>
+                *There is currently an issue with converting Bayer matrices which results in slightly strange colors. We are working on it.</p>
 
 
-                <pre><code>
-    pict = userdata("u8",240,240,"010 ....
-    window {}
-    spr(pict, 0, 0)
-                </code></pre>
-            </div>           
+         
 
-            <div id="convert_userdata">
+            <!--div id="convert_userdata">
                 <h2>Convert to userdata</h2>
                 <a href="picotron_userdata.html">link to tool</a>
-            </div>
+            </div-->
 
             <h2>ss_tool</h2>
             <p>This is a tool that lets you take a series of videos to create a time-lapse video of your PC screen.</p>
-            <div id="ss_tool_binary">
-                <div class="f3 folder opened">
-                <h3>binary download</h3>
+            <!--div id="ss_tool_binary"-->
+            <div id="ss_tool">
+                <!--div class="f3 folder opened"-->
+                <!--h3>binary download</h3-->
                 <ul>
-                    <li><a href="archive/ss_tool.zip">for windows 64bit</a></li>
-                </ul>
-            </div>
-            <div id="ss_tool_repository">
-                <h3>repository</h3>
-                <ul>
-                    <li><a href="https://github.com/sugarflower/ss_tool">ss_tool</a></li>
+                    <li><a href="archive/ss_tool.zip" id="ss_tool_binary">download binary: for windows 64bit</a></li>
+            <!--/div>
+            <div id="ss_tool_repository"-->
+                <!--h3>repository</h3-->
+                    <li><a href="https://github.com/sugarflower/ss_tool" id="ss_tool_repository">github repository: ss_tool</a></li>
                 </ul>
             </div>
             
             
-            <div id="picotron-functions">
+            <!--div id="picotron-functions">
                 <h2>Picotron functions list</h2>
                 <p>This is a list of picotron APIs, including undocumented ones. (Excel file)<br>
                 Basically updated when the latest version of picotron is released.</p>
@@ -123,7 +118,7 @@
                 <ul>
                     <li><a href="archive/picotoron_functions.xlsx">picotron_functions.xlsx (0.1.1d)</a></li>
                 </ul>
-            </div>
+            </div-->
 
         </div> <!--content end-->
 
