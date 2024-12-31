@@ -19,7 +19,12 @@ var imgs = {
     "img202412": {
         "src": "img/2412_01.png",
         "description": "Fuyu Tsubaki 2024.12"
+    },
+    "img202501": {
+        "src": "img/2501_01.png",
+        "description": "Happy New Year 2025 2025.01"
     }
+
 }
 
 
