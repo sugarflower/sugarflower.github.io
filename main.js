@@ -23,6 +23,10 @@ var imgs = {
     "img202501": {
         "src": "img/2501_01.png",
         "description": "Happy New Year 2025 2025.01"
+    },
+    "img202502": {
+        "src": "img/2502_01.png",
+        "description": "dc super hero girls 2025.02"
     }
 
 }
