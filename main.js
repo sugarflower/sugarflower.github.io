@@ -27,6 +27,10 @@ var imgs = {
     "img202502": {
         "src": "img/2502_01.png",
         "description": "dc super hero girls 2025.02"
+    },
+    "img202503": {
+        "src": "img/2503_01.png",
+        "description": "frieren 2025.03"
     }
 
 }
