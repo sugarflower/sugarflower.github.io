@@ -31,6 +31,10 @@ var imgs = {
     "img202503": {
         "src": "img/2503_01.png",
         "description": "frieren 2025.03"
+    },
+    "img202504": {
+        "src": "img/2504_01.png",
+        "description": "cat ear headphone girl 2025.04"
     }
 
 }
