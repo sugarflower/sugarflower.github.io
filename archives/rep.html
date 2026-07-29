@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>動的複数行置換ツール (安定版)</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; background-color: #f0f2f5; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { font-size: 1.2rem; margin-bottom: 20px; color: #333; text-align: center; }
+        label { font-weight: bold; display: block; margin-top: 15px; }
+        textarea { width: 100%; height: 120px; margin-top: 5px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+        button { width: 100%; padding: 15px; margin-top: 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>動的複数行置換ツール</h1>
+
+    <label for="inputText">元の文書:</label>
+    <textarea id="inputText" placeholder="例：日本語は大変ですね。"></textarea>
+
+    <label for="listText">置換リスト (単語,置換後):</label>
+    <textarea id="listText" placeholder="例：日本語,{日本|にほん}{語|ご}&#10;大変,{大|たい}{変|へん}"></textarea>
+
+    <button onclick="runReplacement()">変換を実行</button>
+
+    <label for="outputText">置換結果:</label>
+    <textarea id="outputText" readonly placeholder="ここに結果が表示されます"></textarea>
+</div>
+
+<script>
+    // 起動時にリストを復元 [1]
+    window.onload = function() {
+        const saved = localStorage.getItem('substitutionList');
+        if (saved) document.getElementById('listText').value = saved;
+    };
+
+    function runReplacement() {
+        const inputText = document.getElementById('inputText').value;
+        const listText = document.getElementById('listText').value;
+
+        // リストをローカルストレージに保存 [1]
+        localStorage.setItem('substitutionList', listText);
+
+        let result = inputText;
+        // 改行で分割して1行ずつループ [1]
+        const lines = listText.split(/\r?\n/);
+
+        for (let line of lines) {
+            line = line.trim();
+            if (!line) continue;
+
+            // 最初のカンマの位置を探す（置換後の文字にカンマが含まれても良いように）
+            const commaIndex = line.indexOf(',');
+            if (commaIndex !== -1) {
+                // 検索単語と置換後を分離し、前後の余計な空白を除去
+                const searchWord = line.substring(0, commaIndex).trim();
+                const replaceWord = line.substring(commaIndex + 1).trim();
+
+                if (searchWord) {
+                    // 正規表現の特殊文字をエスケープ
+                    const escaped = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    // 文書内のすべて（'g'フラグ）を置換 [1]
+                    const regex = new RegExp(escaped, 'g');
+                    result = result.replace(regex, replaceWord);
+                }
+            }
+        }
+
+        // 結果を表示 [1]
+        document.getElementById('outputText').value = result;
+    }
+</script>
+
+</body>
+</html>
