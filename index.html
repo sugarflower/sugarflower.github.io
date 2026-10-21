@@ -144,7 +144,31 @@ store("/desktop/output.pod", pod(cb, 7))
             <h2>RPG Maker MZ</h2>
             <p></p>
             <div id="entermap">
-              entermap
+
+              <h3>SF_EnterMapPlugin</h3>
+              <p>download: <a href="archive/SF_EnterMapPlugin.zip">SF_EnterMapPlugin.zip</a></p>
+
+              <p><i>このプラグインは十分にテスト出来ていない為意図しない動作をしたりパフォーマンスに問題が発生するかもしれません。<br>
+                その際はblueskyのsugarflowerまで連絡をいただければ幸いです。</i></p>
+              <p><i>Please note that this plugin hasn't been thoroughly tested, so it might cause unexpected behavior or performance issues. If you run into any issues, I'd really appreciate it if you could reach out to sugarflower on Bluesky!<br>
+                <a href="https://bsky.app/profile/euphoria6611.bsky.social">@euphoria6611.bsky.social</a></i></p>
+
+
+              <p>マップのコモンイベントの先頭に配置することでマップ移動時の初期化を実現するためのプラグインです。<br>
+このプラグインは呼ばれた際に現在のマップが以前に保存されたマップIDかどうか調べ、マップが変更されているのを検知した場合は何もしませんが、同一のマップであることを知るとそれ以降のイベントをすべてキャンセルします。</p>
+              <p>This plugin handles map initialization during transitions when placed at the beginning of a map's common event. When called, it checks if the current map matches the previously saved map ID. If the map has changed, it does nothing; if it is the same map, it cancels all subsequent event processing.</p>
+
+              <img src="img/entermap/entermap0.png">
+              <p>プラグイン管理にSF_EnterMapPluginを読み込みます。</p>
+              <p>Load SF_EnterMapPlugin into the plugin manager.</p>
+
+              <img src="img/entermap/entermap1.png">
+              <p>SF_EnterMapPluginにはグローバル変数を利用するenterMapと、指定の変数を利用するenterMapVarがあります。通常はenterMapを利用します。</p>
+              <p>SF_EnterMapPlugin includes enterMap, which uses a global variable, and enterMapVar, which uses a designated variable. Typically, enterMap is recommended.</p>
+
+              <img src="img/entermap/entermap2.png">
+              <p>マップのコモンイベントの先頭にプラグインコマンドで実行させます。このプラグイン以降の処理はマップに入場、または再入場時に一度だけ実行されます。また、プラグインは並列処理で実行させる必要があります。</p>
+              <p>Place this as a plugin command at the very beginning of the map's common event. The events following this plugin will execute only once when entering or re-entering the map. Note that the plugin must be configured to run in parallel processing.</p>
             </div>
 
         </div> <!--content end-->
